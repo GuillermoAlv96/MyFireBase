@@ -21,7 +21,7 @@ class RegisterFragment : Fragment(), FireStore.RegisterListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         mBinding = FragmentRegisterBinding.inflate(inflater, container, false)
 
@@ -41,7 +41,7 @@ class RegisterFragment : Fragment(), FireStore.RegisterListener {
 
         val name = binding.textName.text.toString()
         val email = binding.textEmail.text.toString()
-        val phone = binding.textPhone.text.toString().toInt()
+        val phone = binding.textPhone.text.toString().toLong()
         val password = binding.textPassword.text.toString()
         val user =
             User("null", name, email, phone, Constants.NOT_COMPLETE_PROFILE, password)
