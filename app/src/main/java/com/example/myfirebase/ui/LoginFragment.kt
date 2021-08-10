@@ -14,7 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
- class LoginFragment : Fragment(), FireStore.LoginListener {
+class LoginFragment : Fragment(), FireStore.LoginListener {
 
     private var mBinding: FragmentLoginBinding? = null
     private val binding get() = mBinding!!
@@ -105,21 +105,23 @@ import com.google.firebase.ktx.Firebase
      * A function to notify user that logged in success and get the user details from the FireStore database after authentication.
      */
 
-    fun userLoggedInSuccess() {
+    private fun userLoggedInSuccess() {
 
         val fragment = UserHomeFragment()//Navigate to second
         val transaction = fragmentManager?.beginTransaction()
         transaction?.replace(R.id.navHostFragment, fragment)?.commit()
     }
 
+    override fun loginSuccess() {
+
+        if (this.loginNotNull()) {
+            userLoggedInSuccess()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         mBinding = null
-    }
-
-    override fun loginSuccess() {
-        userLoggedInSuccess()
     }
 
 

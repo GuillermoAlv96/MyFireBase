@@ -5,8 +5,8 @@ package com.example.myfirebase
  */
 object Constants {
 
-    const val COMPLETE_PROFILE: Int = 1
-    const val NOT_COMPLETE_PROFILE: Int = 0
+    const val COMPLETE_PROFILE: Long = 1
+    const val NOT_COMPLETE_PROFILE: Long = 0
 
     const val USERS: String = "users"
 }

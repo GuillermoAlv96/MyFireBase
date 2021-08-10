@@ -5,14 +5,10 @@ import android.util.Log
 import android.widget.Toast
 import com.example.myfirebase.Constants
 import com.example.myfirebase.models.User
-import com.example.myfirebase.ui.LoginFragment
-import com.example.myfirebase.ui.UserHomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 class FireStore {
@@ -34,7 +30,11 @@ class FireStore {
 
     interface UserInfoSuccess {
 
-        fun userInfoComplete(name: String, email: String, phone: Int)
+        fun userInfoComplete(user: User)
+    }
+
+    interface UserEditSuccess {
+        fun editUserSuccess()
     }
 
 
@@ -111,7 +111,6 @@ class FireStore {
             }
     }
 
-
     /**
      * A function to get the user id of current logged user.
      */
@@ -143,21 +142,37 @@ class FireStore {
             .addOnSuccessListener {
                 if (it != null) {
                     // Here we have received the document snapshot which is converted into the User Data model object
-
+                    val id = it.getString("id") ?: return@addOnSuccessListener
                     val name = it.getString("name") ?: return@addOnSuccessListener
                     val email = it.getString("email") ?: return@addOnSuccessListener
                     val phone = it.getLong("phone") ?: return@addOnSuccessListener
-                    listener.userInfoComplete(name, email, phone.toInt())
+                    val profileCompleted =
+                        it.getLong("profileCompleted") ?: return@addOnSuccessListener
+                    val password = it.getString("password") ?: return@addOnSuccessListener
+                    // val city = it.toObject<User>()
+                    val user = User(id, name, email, phone, profileCompleted, password)
+                    //val user =User(currentUser.toString(),name,email,phone.toInt())
+                    listener.userInfoComplete(user)
 
                 } else {
 
                     Log.d("Error", "No such document")
                 }
             }
-
-
     }
 
+    fun editUser(listener: UserEditSuccess, user: User) {
+
+        // Here we pass the collection name from which we want the data.
+        usersCollectionRef
+            // The document id to get the Fields of user.
+            .document(getCurrentUserID())
+            .update("name", user.name, "email", user.email, "phone", user.phone)
+            .addOnSuccessListener {
+                listener.editUserSuccess()
+
+            }
+    }
 
     fun addToCollection(collection: String, user: User) {
 
