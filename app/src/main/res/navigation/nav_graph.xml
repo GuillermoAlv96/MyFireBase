@@ -6,16 +6,28 @@
     app:startDestination="@id/loginFragment2">
     <fragment
         android:id="@+id/loginFragment2"
-        android:name="com.example.myfirebase.LoginFragment"
+        android:name="com.example.myfirebase.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment2_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment2_to_userHome"
+            app:destination="@id/userHome" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.myfirebase.RegisterFragment"
+        android:name="com.example.myfirebase.ui.RegisterFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_userHome"
+            app:destination="@id/userHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/userHome"
+        android:name="com.example.myfirebase.UserHome"
+        android:label="fragment_user_home"
+        tools:layout="@layout/fragment_user_home" />
 </navigation>

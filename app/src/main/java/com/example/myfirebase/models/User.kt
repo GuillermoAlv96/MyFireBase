@@ -1,10 +1,10 @@
-package com.example.myfirebase
+package com.example.myfirebase.models
 
-import android.provider.ContactsContract
 
 data class User(
     val id: String,
     val name: String,
     val email: String,
     val phone: Int,
+    val profileCompleted: Int,
     val password: String)
