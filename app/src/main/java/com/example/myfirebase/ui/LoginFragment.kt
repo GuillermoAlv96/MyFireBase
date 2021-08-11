@@ -31,8 +31,7 @@ class LoginFragment : Fragment(), FireStore.LoginListener {
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        userSession()
-
+          userSession()
     }
 
     override fun onCreateView(
@@ -56,9 +55,7 @@ class LoginFragment : Fragment(), FireStore.LoginListener {
         val user = Firebase.auth.currentUser
         if (user != null) {
             // User is signed in
-            val fragment = UserHomeFragment()//Navigate to second
-            val transaction = fragmentManager?.beginTransaction()
-            transaction?.replace(R.id.navHostFragment, fragment)?.commit()
+            transaction()
         }
     }
 
@@ -105,9 +102,9 @@ class LoginFragment : Fragment(), FireStore.LoginListener {
      * A function to notify user that logged in success and get the user details from the FireStore database after authentication.
      */
 
-    private fun userLoggedInSuccess() {
+    private fun transaction() {
 
-        val fragment = UserHomeFragment()//Navigate to second
+        val fragment = MapsFragment()//Navigate to second
         val transaction = fragmentManager?.beginTransaction()
         transaction?.replace(R.id.navHostFragment, fragment)?.commit()
     }
@@ -115,7 +112,7 @@ class LoginFragment : Fragment(), FireStore.LoginListener {
     override fun loginSuccess() {
 
         if (this.loginNotNull()) {
-            userLoggedInSuccess()
+            transaction()
         }
     }
 

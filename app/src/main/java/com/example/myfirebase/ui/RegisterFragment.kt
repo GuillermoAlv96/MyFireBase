@@ -44,7 +44,7 @@ class RegisterFragment : Fragment(), FireStore.RegisterListener {
         val phone = binding.textPhone.text.toString().toLong()
         val password = binding.textPassword.text.toString()
         val user =
-            User("null", name, email, phone, Constants.NOT_COMPLETE_PROFILE, password)
+            User(name, email, phone, Constants.NOT_COMPLETE_PROFILE, password)
 
         FireStore().registry(this, requireContext(), user)
     }
