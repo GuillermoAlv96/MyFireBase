@@ -174,6 +174,28 @@ class FireStore {
             }
     }
 
+    fun updateLocationUser(url: String) {
+
+        val location = hashMapOf(
+            "location" to url
+        )
+        //The "user" is collection name. If the collection is already created then it will not create the same one again.
+        usersCollectionRef
+
+            //Document Id for users fields. Here the document it is the User ID.
+            .document(getCurrentUserID())
+
+            //Here the userInfo are Field amd SetOption is set to merge. It is in case we want to merge to merge later on instead of replacing the fields.
+            .set(location, SetOptions.merge())
+            .addOnSuccessListener { documentReference ->
+
+            }
+            .addOnFailureListener { e ->
+
+            }
+    }
+
+
     fun addToCollection(collection: String, user: User) {
 
         // Add a new document with a generated ID

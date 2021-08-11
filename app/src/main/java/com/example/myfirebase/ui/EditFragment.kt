@@ -35,14 +35,7 @@ class EditFragment : Fragment(), FireStore.UserEditSuccess, FireStore.UserInfoSu
                 val name = binding.textName.text.toString()
                 val email = binding.textEmail.text.toString()
                 val phone = binding.textPhone.text.toString()
-                val user = User(
-                    "",
-                    name,
-                    email,
-                    phone.toLong(),
-                    2,
-                    ""
-                )
+                val user = User(name,email, phone.toLong())
                 FireStore().editUser(this, user)
             }
         }
